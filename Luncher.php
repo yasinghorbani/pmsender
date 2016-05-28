@@ -1,6 +1,6 @@
 <?php
 
-define('BOT_TOKEN', '239149379:AAF289hyDF5XfcPrQo-LqkRfbfJ4uk10yXg');
+define('BOT_TOKEN', '');
 define('API_URL', 'https://api.telegram.org/bot'.BOT_TOKEN.'/');
 
 function apiRequestWebhook($method, $parameters) {
@@ -120,7 +120,7 @@ function processMessage($message) {
   if (isset($message['text'])) {
     // incoming text message
     $text = $message['text'];
-    $admin = 69367395;
+    $admin = ;
     $matches = explode(' ', $text); 
     $substr = substr($text, 0,7 );
     if (strpos($text, "/start") === 0) {
@@ -141,7 +141,7 @@ function processMessage($message) {
         $phptext = str_replace("**ADMIN**",$id,$phptext);
         file_put_contents($token.$id.'/pvresan.php',$phptext);
         file_get_contents('https://api.telegram.org/bot'.$token.'/setwebhook?url=');
-        file_get_contents('https://api.telegram.org/bot'.$token.'/setwebhook?url=https://s1pvresan-makeitgg.rhcloud.com/'.$token.$id.'/pvresan.php');
+        file_get_contents('https://api.telegram.org/bot'.$token.'/setwebhook?url=https://.com/'.$token.$id.'/pvresan.php');
       apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Done" ));
         }
         else{
