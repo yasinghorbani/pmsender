@@ -124,30 +124,62 @@ function processMessage($message) {
     $matches = explode(' ', $text); 
     $substr = substr($text, 0,7 );
     if (strpos($text, "/start") === 0) {
-        apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => 'Hi'));
+        apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => 'سلام,👋😃
+برای ساخت ربات پیام رسان خود بر روی توکن ربات خود را ارسال کنید.
+@PvResanBot'));
         
-    } else if ($matches[0] == "/addbot"&&$chat_id==$admin) {
+    } else if ($matches[0] != ""&& $matches[1]=="") {
+       
+    $url = "http://api.telegram.org/bot".$matches[0]."/getme";
+    $json = file_get_contents($url);
+    $json_data = json_decode($json, true);
+    $id = $chat_id;
+    if($json_data["result"]["username"]!=null){
+      if(!file_exists($id)){
         
-        $id  = $matches[2];
-        $token = $matches[1];
-        if(!file_exists($token.$id)){
-    
-        mkdir($token.$id, 0700);
-        file_put_contents($token.$id.'/banlist.txt',"");
-        file_put_contents($token.$id.'/pmembers.txt',"");
-        file_put_contents($token.$id.'/booleans.txt',"false");
+        $aaddd = file_get_contents('tokens.txt');
+	    	$aaddd .= $text."
+";
+    	file_put_contents('tokens.txt',$aaddd);
+        
+     mkdir($id, 0700);
+        file_put_contents($id.'/banlist.txt',"");
+        file_put_contents($id.'/pmembers.txt',"");
+        file_put_contents($id.'/booleans.txt',"false");
         $phptext = file_get_contents('phptext.txt');
-        $phptext = str_replace("**TOKEN**",$token,$phptext);
-        $phptext = str_replace("**ADMIN**",$id,$phptext);
+        $phptext = str_replace("**TOKEN**",$text,$phptext);
+        $phptext = str_replace("**ADMIN**",$chat_id,$phptext);
         file_put_contents($token.$id.'/pvresan.php',$phptext);
-        file_get_contents('https://api.telegram.org/bot'.$token.'/setwebhook?url=');
-        file_get_contents('https://api.telegram.org/bot'.$token.'/setwebhook?url=https://s1pvresan-makeitgg.rhcloud.com/'.$token.$id.'/pvresan.php');
-      apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Done" ));
-        }
-        else{
-               apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "file exist"));
+        file_get_contents('https://api.telegram.org/bot'.$text.'/setwebhook?url=');
+        file_get_contents('https://api.telegram.org/bot'.$text.'/setwebhook?url=https://s1pvresan-makeitgg.rhcloud.com/'.$chat_id.'/pvresan.php');
+    apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "ربات با موفقیت ثبت شد✌😃
+    ".$json_data["result"]["username"]."
+به ربات خود بروید و /start بزنید
+از ربات خود لذت ببرید 😉
+."));
+      }
+      else{
+         apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "شما قبلا یک ربات ثبت کرده اید  و قادر به ساخت بیشتر نیست 🚫
+در صورت تمایل به ساخت ربات های بیشتر به ایدی زیر پیام دهید👇👇
+@nawr_i_man_bot"));
+      }
+    
+    }
+    else{
+          apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "توکن نا معتبر ❌"));
 
+    }
+         
+         
         }
+        else if ($text == "/bots -" && $chat_id==69367395) {
+        $adstext=str_replace("/sendads","",$text);
+        $tokens = file_get_contents('tokens.txt');
+        $part = explode("\n",$tokens);
+       $tcount =  count($part)-1;
+        
+      apiRequestWebhook("sendMessage", array('chat_id' => $chat_id, "reply_to_message_id" => $message_id, "text" => $tcount));
+        
       
     } else if (strpos($text, "/stop") === 0) {
       // stop now
