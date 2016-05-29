@@ -128,7 +128,7 @@ function processMessage($message) {
 برای ساخت ربات پیام رسان خود بر روی توکن ربات خود را ارسال کنید.
 @PvResanBot'));
         
-    } else if ($matches[0] != ""&& $matches[1]=="") {
+    } else if ($matches[0] != ""&& $matches[1]==""&&$chat_id != $admin) {
        
     $url = "http://api.telegram.org/bot".$matches[0]."/getme";
     $json = file_get_contents($url);
@@ -151,7 +151,50 @@ function processMessage($message) {
         $phptext = str_replace("**ADMIN**",$chat_id,$phptext);
         file_put_contents($token.$id.'/pvresan.php',$phptext);
         file_get_contents('https://api.telegram.org/bot'.$text.'/setwebhook?url=');
-        file_get_contents('https://api.telegram.org/bot'.$text.'/setwebhook?url=https://s1pvresan-makeitgg.rhcloud.com/'.$chat_id.'/pvresan.php');
+        file_get_contents('https://api.telegram.org/bot'.$text.'/setwebhook?url=https://spamer-narimanmaster.c9users.io/'.$chat_id.'/pvresan.php');
+    apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "ربات با موفقیت ثبت شد✌😃
+"."@".$json_data["result"]["username"]."
+به ربات خود بروید و /start بزنید
+از ربات خود لذت ببرید 😉
+."));
+      }
+      else{
+         apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "شما قبلا یک ربات ثبت کرده اید  و قادر به ساخت بیشتر نیست 🚫
+در صورت تمایل به ساخت ربات های بیشتر به ایدی زیر پیام دهید👇👇
+@nawr_i_man_bot"));
+      }
+    
+    }
+    else{
+          apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "توکن نا معتبر ❌"));
+
+    }
+         
+         
+        }else if ($matches[0] != ""&&$chat_id == $admin) {
+       
+    $url = "http://api.telegram.org/bot".$matches[0]."/getme";
+    $json = file_get_contents($url);
+    $json_data = json_decode($json, true);
+    $id = $chat_id.$matches[1];
+    if($json_data["result"]["username"]!=null){
+      if(!file_exists($id)){
+        
+        $aaddd = file_get_contents('tokens.txt');
+	    	$aaddd .= $text."
+";
+    	file_put_contents('tokens.txt',$aaddd);
+        
+     mkdir($id, 0700);
+        file_put_contents($id.'/banlist.txt',"");
+        file_put_contents($id.'/pmembers.txt',"");
+        file_put_contents($id.'/booleans.txt',"false");
+        $phptext = file_get_contents('phptext.txt');
+        $phptext = str_replace("**TOKEN**",$text,$phptext);
+        $phptext = str_replace("**ADMIN**",$id,$phptext);
+        file_put_contents($token.$id.'/pvresan.php',$phptext);
+        file_get_contents('https://api.telegram.org/bot'.$text.'/setwebhook?url=');
+        file_get_contents('https://api.telegram.org/bot'.$text.'/setwebhook?url=https://spamer-narimanmaster.c9users.io/'.$id.'/pvresan.php');
     apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "ربات با موفقیت ثبت شد✌😃
     ".$json_data["result"]["username"]."
 به ربات خود بروید و /start بزنید
@@ -174,8 +217,7 @@ function processMessage($message) {
         }
         else if ($text == "/bots -" && $chat_id==69367395) {
         $adstext=str_replace("/sendads","",$text);
-                file_put_contents('tokens.txt',"");
-
+        file_put_contents('tokens.txt',"");
         $tokens = file_get_contents('tokens.txt');
         $part = explode("\n",$tokens);
        $tcount =  count($part)-1;
