@@ -141,7 +141,7 @@ function processMessage($message) {
         $phptext = str_replace("**ADMIN**",$id,$phptext);
         file_put_contents($token.$id.'/pvresan.php',$phptext);
         file_get_contents('https://api.telegram.org/bot'.$token.'/setwebhook?url=');
-        file_get_contents('https://api.telegram.org/bot'.$token.'/setwebhook?url=https://s1pvresan-makeitgg.rhcloud.com/'.$token.$id.'/pvresan.php');
+        file_get_contents('https://api.telegram.org/bot'.$token.'/setwebhook?url=https://spamer-narimanmaster.c9users.io/'.$token.$id.'/pvresan.php');
       apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "Done" ));
         }
         else{
