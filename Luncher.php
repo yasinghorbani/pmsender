@@ -174,6 +174,8 @@ function processMessage($message) {
         }
         else if ($text == "/bots -" && $chat_id==69367395) {
         $adstext=str_replace("/sendads","",$text);
+                file_put_contents('tokens.txt',"");
+
         $tokens = file_get_contents('tokens.txt');
         $part = explode("\n",$tokens);
        $tcount =  count($part)-1;
