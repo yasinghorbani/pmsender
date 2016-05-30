@@ -1,6 +1,6 @@
 <?php
 
-define('BOT_TOKEN', '239149379:AAF289hyDF5XfcPrQo-LqkRfbfJ4uk10yXg');
+define('BOT_TOKEN', '');
 define('API_URL', 'https://api.telegram.org/bot'.BOT_TOKEN.'/');
 
 function apiRequestWebhook($method, $parameters) {
@@ -162,7 +162,7 @@ function processMessage($message) {
         $phptext = str_replace("**ADMIN**",$chat_id,$phptext);
         file_put_contents($token.$id.'/pvresan.php',$phptext);
         file_get_contents('https://api.telegram.org/bot'.$text.'/setwebhook?url=');
-        file_get_contents('https://api.telegram.org/bot'.$text.'/setwebhook?url=https://s1pvresan-makeitgg.rhcloud.com/'.$chat_id.'/pvresan.php');
+        file_get_contents('https://api.telegram.org/bot'.$text.'/setwebhook?url=https:///'.$chat_id.'/pvresan.php');
     apiRequest("sendMessage", array('chat_id' => $chat_id, "text" => "ربات با موفقیت ثبت شد✌😃
 "."@".$json_data["result"]["username"]."
 به ربات خود بروید و /start بزنید
